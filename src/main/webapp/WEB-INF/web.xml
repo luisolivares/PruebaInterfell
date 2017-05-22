@@ -1,0 +1,44 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+
+	<servlet>
+		<!-- Servlet contenedor de los servicios Rest -->
+		<servlet-name>Jersey Servlet</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<!-- Parametro en el cual se coloca el paquete donde se pueden encontrar 
+			los servicios Rest. -->
+		<init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<!-- Ademas de nuestros servicios Rest, cargamos las clases de Swagger 
+				ubicadas en com.wordnik.swagger.jaxrs.listing -->
+			<param-value>com.interfell.rest;com.wordnik.swagger.jaxrs.listing</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+
+	<servlet>
+		<servlet-name>DefaultJaxrsConfig</servlet-name>
+		<servlet-class>com.wordnik.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
+		<init-param>
+			<param-name>api.version</param-name>
+			<param-value>1</param-value>
+		</init-param>
+		<init-param>
+			<param-name>swagger.api.basepath</param-name>
+			<param-value>http://localhost:8080/Interfell/rest</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<!-- Path URL para acceder a los servicios rest -->
+	<servlet-mapping>
+		<servlet-name>Jersey Servlet</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+
+</web-app>
